@@ -317,7 +317,7 @@ def main():
                     #df['mean_risque'] = df[perturbations].mean(axis = 1)
                     cols = ['date','supplier']+var_x
                     st.write(df_p[cols])
-                sup =  st.selectbox("Choose a Supplier to se its ancesstors",  list(df_p.name.values))
+                sup =  st.selectbox("Choose a Supplier to see its ancesstors",  list(df_p.name.values))
                 Net = nx.from_pandas_adjacency(Matrices[dt][1] , create_using=nx.DiGraph)
                 G, Edges, df = utils.get_ancesstor(df_t,sup,Net,perturbations)
                 st_plot_net(G,Edges, [str(i) for i in list(df.score.values)],sup)
@@ -358,7 +358,7 @@ def main():
                     cols = ['date','supplier']+var
                     st.write(df_p[cols])
 					
-                sup =  st.selectbox("Choose a Supplier to se its ancesstors",  list(df_p.name.values))
+                sup =  st.selectbox("Choose a Supplier to see its ancesstors",  list(df_p.name.values))
                 Net = nx.from_pandas_adjacency(Matrices[dt][1] , create_using=nx.DiGraph)
                 G, Edges, df = utils.get_ancesstor(df_t,sup,Net,perturbations)
                 st_plot_net(G,Edges, [str(i) for i in list(df.score.values)],sup)
@@ -400,7 +400,7 @@ def main():
                     cols = ['date','supplier']+var
                     st.write(df_p[cols])
 
-                sup =  st.selectbox("Choose a Supplier to se its ancesstors",  list(df_p.name.values))
+                sup =  st.selectbox("Choose a Supplier to see its ancesstors",  list(df_p.name.values))
                 Net = nx.from_pandas_adjacency(Matrices[dt][1] , create_using=nx.DiGraph)
                 G, Edges, df = utils.get_ancesstor(df_t,sup,Net,perturbations)
                 st_plot_net(G,Edges, [str(i) for i in list(df.score.values)],sup)
