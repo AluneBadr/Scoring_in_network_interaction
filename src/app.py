@@ -411,11 +411,8 @@ def main():
             Net = plot_network(Matrices,dt)
 
             plot_importance(SVC,train,var_x, algo='Svc')
-            df = Test_data[Test_data.date==dt][Test_data.supplier.isin(list(Net.predecessors(choose_product)))]
+            df_p = Test_data[Test_data.date==dt][Test_data.supplier.isin(list(Net.predecessors(choose_product)))]
 
-            if st.checkbox('Voir les données?'):
-                #df['mean_risque'] = df[perturbations].mean(axis = 1)
-                st.write(df[['date','supplier']+var_x])
                 
             P_suplier_Score = []
             Net = nx.from_pandas_adjacency(Matrices[dt][1] , create_using=nx.DiGraph)
@@ -433,6 +430,18 @@ def main():
             f['layout'].update(showlegend=True,title='Scores des Fournisseurs de {} au {}'.format(choose_product,dt))
 
             st.plotly_chart(f)                
-    
+             
+            if st.checkbox('Display Score driver of suppliers  for selected product '):
+                    #df['mean_risque'] = df[perturbations].mean(axis = 1)
+                    cols = ['date','supplier']+var_x
+                    st.write(df_p[cols])
+					
+                sup =  st.selectbox("Choose a Supplier to see its ancesstors",  list(df_p.name.values))
+                Net = nx.from_pandas_adjacency(Matrices[dt][1] , create_using=nx.DiGraph)
+                G, Edges, df = utils.get_ancesstor(df_t,sup,Net,perturbations)
+                st_plot_net(G,Edges, [str(i) for i in list(df.score.values)],sup)
+                st.write(df[["name","score"]])  
+				
+				
 if __name__ == "__main__":
 	main()
